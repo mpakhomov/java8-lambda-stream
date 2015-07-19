@@ -1,5 +1,7 @@
 package com.mpakhomov.week01;
 
+import java.nio.*;
+import java.util.*;
 import java.util.function.*;
 
 /**
@@ -24,6 +26,7 @@ public class Lesson1_2 {
             t.printStackTrace();
         }
         testFunctionComposeAndThen();
+        quiz();
 
     }
 
@@ -37,5 +40,22 @@ public class Lesson1_2 {
         int b = function.compose((Integer i) -> i * i).andThen(i -> i + 3).apply(3);
         System.out.println(a);
         System.out.println(b);
+    }
+
+    public static void quiz() {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4);
+//        list.replaceAll(n -> Integer.signum(n));
+        list.replaceAll(Integer::signum);
+//        list.replaceAll(Number::signum);
+        list.stream()
+                .forEachOrdered(System.out::println);
+        Thread t = new Thread(() -> {System.out.println("qweert");});
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Buffer b;
     }
 }
