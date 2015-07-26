@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.*;
 
 /**
  * @author Speakjava (simon.ritter@oracle.com)
@@ -53,6 +53,11 @@ public class Lesson2_Hw {
         "The", "Quick", "BROWN", "Fox", "Jumped", "Over", "The", "LAZY", "DOG");
 
     /* YOUR CODE HERE */
+    System.out.println(
+            list.stream()
+                    .map(String::toUpperCase)
+                    .collect(Collectors.joining(" ")));
+
   }
 
   /**
@@ -66,6 +71,11 @@ public class Lesson2_Hw {
         "The", "Quick", "BROWN", "Fox", "Jumped", "Over", "The", "LAZY", "DOG");
 
     /* YOUR CODE HERE */
+    System.out.println(
+            list.stream()
+                    .map(String::toUpperCase)
+                    .filter(s -> s.length() % 2 != 0)
+                    .collect(Collectors.joining(" ")));
   }
 
   /**
@@ -75,10 +85,15 @@ public class Lesson2_Hw {
    * where each word is separated by a hyphen (-). Print the resulting string.
    */
   private void exercise3() {
-    List<String> list = Arrays.asList(
+    final List<String> list = Arrays.asList(
         "The", "quick", "brown", "fox", "jumped", "over", "the", "lazy", "dog");
 
     /* YOUR CODE HERE */
+    System.out.println(
+        list.stream()
+            .filter(s -> list.indexOf(s) == 1 || list.indexOf(s) == 2 || list.indexOf(s) == 3)
+            .collect(Collectors.joining("-"))
+    );
   }
 
   /**
@@ -87,8 +102,11 @@ public class Lesson2_Hw {
   private void exercise4() throws IOException {
     try (BufferedReader reader = Files.newBufferedReader(
         Paths.get("SonnetI.txt"), StandardCharsets.UTF_8)) {
-      /* YOUR CODE HERE */
+        /* YOUR CODE HERE */
+      System.out.println(reader.lines().count());
     }
+
+    System.out.println(Files.lines(Paths.get("SonnetI.txt")).count());
   }
   
   /**
@@ -101,7 +119,22 @@ public class Lesson2_Hw {
     try (BufferedReader reader = Files.newBufferedReader(
         Paths.get("SonnetI.txt"), StandardCharsets.UTF_8)) {
       /* YOUR CODE HERE */
+      System.out.println(
+              reader.lines()
+                      .flatMap((String l) -> Stream.of(l.split(WORD_REGEXP)))
+                      .map(String::toLowerCase)
+                      .distinct()
+                      .collect(Collectors.joining(" ")));
     }
+
+    // find duplicates
+    Set<String> uniqueWords = new HashSet<>();
+    System.out.println(
+            Files.lines(Paths.get("SonnetI.txt"))
+                    .flatMap((String l) -> Stream.of(l.split(WORD_REGEXP)))
+                    .map(String::toLowerCase)
+                    .filter(s -> uniqueWords.add(s) == false)
+                    .collect(Collectors.joining(" ")));
   }
   
   /**
@@ -112,7 +145,14 @@ public class Lesson2_Hw {
   private void exercise6() throws IOException {
     try (BufferedReader reader = Files.newBufferedReader(
         Paths.get("SonnetI.txt"), StandardCharsets.UTF_8)) {
-      /* YOUR CODE HERE */
+         /* YOUR CODE HERE */
+        System.out.println(
+                reader.lines()
+                        .flatMap((String l) -> Stream.of(l.split(WORD_REGEXP)))
+                        .map(String::toLowerCase)
+                        .distinct()
+                        .sorted()
+                        .collect(Collectors.joining(" ")));
     }
   }
   
@@ -122,7 +162,14 @@ public class Lesson2_Hw {
   private void exercise7() throws IOException {
     try (BufferedReader reader = Files.newBufferedReader(
         Paths.get("SonnetI.txt"), StandardCharsets.UTF_8)) {
-      /* YOUR CODE HERE */
+
+        System.out.println(
+              reader.lines()
+                      .flatMap((String l) -> Stream.of(l.split(WORD_REGEXP)))
+                      .map(String::toLowerCase)
+                      .distinct()
+                      .sorted((l, r) -> Integer.compare(l.length(), r.length()))
+                      .collect(Collectors.joining(" ")));
     }
   }
 
