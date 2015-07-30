@@ -168,7 +168,8 @@ public class Lesson2_Hw {
                       .flatMap((String l) -> Stream.of(l.split(WORD_REGEXP)))
                       .map(String::toLowerCase)
                       .distinct()
-                      .sorted((l, r) -> Integer.compare(l.length(), r.length()))
+                      .sorted((l, r) -> l.length() - r.length())
+//                      .sorted((l, r) -> Integer.compare(l.length(), r.length()))
                       .collect(Collectors.joining(" ")));
     }
   }
