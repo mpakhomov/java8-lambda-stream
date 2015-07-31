@@ -5,6 +5,8 @@
  */
 package java8.mooc.week02;
 
+import java8.mooc.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -101,12 +103,12 @@ public class Lesson2_Hw {
    */
   private void exercise4() throws IOException {
     try (BufferedReader reader = Files.newBufferedReader(
-        Paths.get("SonnetI.txt"), StandardCharsets.UTF_8)) {
+        Paths.get(Utils.getResourcesPath() + "SonnetI.txt"), StandardCharsets.UTF_8)) {
         /* YOUR CODE HERE */
       System.out.println(reader.lines().count());
     }
 
-    System.out.println(Files.lines(Paths.get("SonnetI.txt")).count());
+    System.out.println(Files.lines(Paths.get(Utils.getResourcesPath() + "SonnetI.txt")).count());
   }
   
   /**
@@ -117,7 +119,7 @@ public class Lesson2_Hw {
    */
   private void exercise5() throws IOException {
     try (BufferedReader reader = Files.newBufferedReader(
-        Paths.get("SonnetI.txt"), StandardCharsets.UTF_8)) {
+        Paths.get(Utils.getResourcesPath() + "SonnetI.txt"), StandardCharsets.UTF_8)) {
       /* YOUR CODE HERE */
       System.out.println(
               reader.lines()
@@ -130,7 +132,7 @@ public class Lesson2_Hw {
     // find duplicates
     Set<String> uniqueWords = new HashSet<>();
     System.out.println(
-            Files.lines(Paths.get("SonnetI.txt"))
+            Files.lines(Paths.get(Utils.getResourcesPath() + "SonnetI.txt"))
                     .flatMap((String l) -> Stream.of(l.split(WORD_REGEXP)))
                     .map(String::toLowerCase)
                     .filter(s -> uniqueWords.add(s) == false)
@@ -144,7 +146,7 @@ public class Lesson2_Hw {
    */
   private void exercise6() throws IOException {
     try (BufferedReader reader = Files.newBufferedReader(
-        Paths.get("SonnetI.txt"), StandardCharsets.UTF_8)) {
+        Paths.get(Utils.getResourcesPath() + "SonnetI.txt"), StandardCharsets.UTF_8)) {
          /* YOUR CODE HERE */
         System.out.println(
                 reader.lines()
@@ -161,7 +163,7 @@ public class Lesson2_Hw {
    */
   private void exercise7() throws IOException {
     try (BufferedReader reader = Files.newBufferedReader(
-        Paths.get("SonnetI.txt"), StandardCharsets.UTF_8)) {
+        Paths.get(Utils.getResourcesPath() + "SonnetI.txt"), StandardCharsets.UTF_8)) {
 
         System.out.println(
               reader.lines()
@@ -182,6 +184,7 @@ public class Lesson2_Hw {
    */
   public static void main(String[] args) throws IOException {
     Lesson2_Hw lesson = new Lesson2_Hw();
+      Utils.getResourcesPath();
     lesson.runExercises();
   }
 }
