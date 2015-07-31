@@ -65,6 +65,7 @@ public class Levenshtein {
     int[] v1 = new int[t.length + 1];
     Arrays.setAll(v0, i -> i);
 
+
     for (int i = 0; i < s.length; i++) {
             // calculate v1 (current row distances) from the previous row v0
       // first element of v1 is A[i+1][0]
